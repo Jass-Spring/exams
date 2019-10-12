@@ -16,6 +16,9 @@
 		data() {
 			return {}
 		},
+		mounted() {
+			mui('.mui-numbox').numbox();
+		},
 		methods: {
 			countChanged() {
 				this.$emit('getcount', this.$refs.numberbox.value);

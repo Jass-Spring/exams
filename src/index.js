@@ -29,16 +29,49 @@ Vue.use(MintUI);
 // Vue.component(Button.name, Button);
 // Vue.use(Lazyload);
 
+var cart = JSON.parse(localStorage.getItem('cart') || '[]');
 const store = new VueX.Store({
 	state: {
-		count: 1
+		cart: cart
 	},
 	mutations: {
+		addGoods(state, goods) {
+			var i = state.cart.findIndex(item => {
+				return item.id == goods.id;
+			});
+
+			if (i > -1) {
+				state.cart[i].count += goods.count;
+			} else {
+				state.cart.push(goods);
+			}
+
+			localStorage.setItem('cart', JSON.stringify(state.cart));
+		},
 		increment(state) {
-			state.count++;
 		},
 		reduction(state) {
-			state.count--;
+		},
+		updateGoods(state, info) {
+			var i = state.cart.findIndex(value => {
+				return value.id == info.id;
+			});
+
+			if (i > -1) {
+				state.cart[i].title = info.title;
+				state.cart[i].img_src = info.thumb_path;
+			}
+
+			localStorage.setItem('cart', JSON.stringify(state.cart));
+		}
+	},
+	getters: {
+		getSum: state => {
+			var sum = 0;
+			state.cart.forEach(item => {
+				sum += item.count;
+			});
+			return sum;
 		}
 	}
 });

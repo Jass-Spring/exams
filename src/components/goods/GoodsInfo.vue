@@ -131,6 +131,16 @@
 			},
 			addCart() {
 				this.ballFlag = !this.ballFlag;
+				
+				var goods = {
+					id: this.id,
+					title: '',
+					img_src: '',
+					price: parseInt(this.goodsInfo.sell_price),
+					count: parseInt(this.selectCount),
+					selected: true
+				};
+				this.$store.commit('addGoods', goods);
 			},
 			beforeEnter(el) {
 				el.style.transform = 'translate(0, 0)';
@@ -149,7 +159,6 @@
 			},
 			getSelectCount(count) {
 				this.selectCount = count;
-				console.log(this.selectCount);
 			},
 			goDesc() {
 				this.$router.push({ name: 'goodsdesc', params: { id: this.id } });
