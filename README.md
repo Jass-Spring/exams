@@ -5,3 +5,6 @@
 ## 使用bootstrap、mui、mint-ui
 
 ## update
+
+## 10/15
+### 解决了有两个图标无法显示的问题
